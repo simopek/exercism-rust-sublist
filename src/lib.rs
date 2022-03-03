@@ -9,9 +9,25 @@ pub enum Comparison {
 }
 
 pub fn sublist<T: PartialEq>(_first_list: &[T], _second_list: &[T]) -> Comparison {
+
+    /*
+    The "windows" method creates an iterator of "Windows"
+    that allow to have a "moving view" on the slice
+    e.g.
+    let slice = ['r', 'u', 's', 't'];
+    let mut iter = slice.windows(2);
+    assert_eq!(iter.next().unwrap(), &['r', 'u']);
+    assert_eq!(iter.next().unwrap(), &['u', 's']);
+    assert_eq!(iter.next().unwrap(), &['s', 't']);
+    assert!(iter.next().is_none());
+
+    The "any" method returns true if at least one "Window"
+    satisfies the provided predicate (a closure).
+     */
+
     let superlist = _second_list.is_empty()
         || _first_list
-            .windows(_second_list.len())
+            .windows(_second_list.len()).ite
             .any(|x| x == _second_list);
     let sublist = _first_list.is_empty()
         || _second_list
