@@ -9,16 +9,20 @@ pub enum Comparison {
 }
 
 pub fn sublist<T: PartialEq>(_first_list: &[T], _second_list: &[T]) -> Comparison {
-    let superlist = _second_list.is_empty() ||
-        _first_list.windows(_second_list.len()).any(|x| x == _second_list);
-    let sublist = _first_list.is_empty() ||
-        _second_list.windows(_first_list.len()).any(|x| x == _first_list);
+    let superlist = _second_list.is_empty()
+        || _first_list
+            .windows(_second_list.len())
+            .any(|x| x == _second_list);
+    let sublist = _first_list.is_empty()
+        || _second_list
+            .windows(_first_list.len())
+            .any(|x| x == _first_list);
 
     match (sublist, superlist) {
         (true, true) => Comparison::Equal,
         (true, false) => Comparison::Sublist,
         (false, true) => Comparison::Superlist,
-        _ => Comparison::Unequal
+        _ => Comparison::Unequal,
     }
 }
 
@@ -62,12 +66,11 @@ fn list_a_is_sublist_of_list_b<T: PartialEq>(list_a: &[T], list_b: &[T]) -> bool
 
         let mut list_a_idx = 0;
 
-//        println!("list_b_idx={}", list_b_idx);
+        //        println!("list_b_idx={}", list_b_idx);
 
         let mut n_items_matched = 0;
         let mut inner_list_b_idx = list_b_idx;
         while list_a_idx < list_a_len && inner_list_b_idx < list_b_len {
-
             //println!("list_a_idx={} inner_list_b_idx={}", list_a_idx, inner_list_b_idx);
 
             if list_a[list_a_idx] == list_b[inner_list_b_idx] {
